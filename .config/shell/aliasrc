@@ -1,0 +1,140 @@
+#!/bin/sh
+
+# Use $XINITRC variable if file exists.
+[ -f "$XINITRC" ] && alias startx="startx $XINITRC --:7: > /dev/null 2>&1 &"
+
+# Use neovim for vim if present.
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+
+# bare git repo alias for dotfiles
+#alias dotfiles="/usr/bin/git --git-dir=$HOME/.local/src/dotfiles/ --work-tree=$HOME"
+dotfiles() {
+  git --git-dir=$HOME/.local/src/chadfiles/ --work-tree=$HOME "$@"
+}
+_dotfiles () {
+  local -x GIT_DIR=$HOME/.local/src/chadfiles/ GIT_WORKTREE=$HOME
+  _git "$@"
+}
+#compdef _gitx gitx
+
+alias cls="clear"
+
+alias open="xdg-open $@"
+
+alias listsubtitles="ffprobe -loglevel error -select_streams s -show_entries stream=index:stream_tags=language -of csv=p=0 $@"
+
+urlxray() {
+    curl -s "http://urlxray.com/display.php?url=$@" | grep -o '<title>.*</title>' | sed 's/<title>.*--> \(.*\)<\/title>/\1/g'
+}
+
+# termbin
+alias tb="nc termbin.com 9999"
+
+alias ip="ip -c"
+
+
+alias 2png="mogrify -format png"
+
+# Changing "ls" to "exa"
+alias \
+    ls="exa -gl --color=always --group-directories-first" \
+    la="exa -ga --color=always --group-directories-first" \
+    ll="exa -gal --color=always --group-directories-first" \
+    lt="exa -gaT --color=always --group-directories-first" \
+    llt="exa -gal --color=always -s time"
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \
+	cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -Iv" \
+	mkd="mkdir -pv" \
+	yt="youtube-dl --add-metadata -i" \
+	yta="yt -x -f bestaudio/best" \
+	ffmpeg="ffmpeg -hide_banner"
+
+# Colorize commands when possible.
+alias \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi"
+
+# These common commands are just too long! Abbreviate them.
+alias \
+	ka="killall" \
+	g="git" \
+	trem="transmission-remote" \
+	YT="youtube-viewer" \
+	sdn="sudo shutdown -h now" \
+	f="$FILE" \
+	e="$EDITOR" \
+	v="$EDITOR" \
+	p="sudo pacman" \
+	z="zathura"
+
+alias vf='xdg-open $(fzf)'
+
+alias \
+	magit="nvim -c MagitOnly" \
+	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" \
+	weath="less -S ${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport" \
+	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
+
+
+# youtube-dl
+alias \
+    yta-aac="youtube-dl --extract-audio --audio-format aac " \
+    yta-best="youtube-dl --extract-audio --audio-format best " \
+    yta-flac="youtube-dl --extract-audio --audio-format flac " \
+    yta-m4a="youtube-dl --extract-audio --audio-format m4a " \
+    yta-mp3="youtube-dl --extract-audio --audio-format mp3 " \
+    yta-opus="youtube-dl --extract-audio --audio-format opus " \
+    yta-vorbis="youtube-dl --extract-audio --audio-format vorbis " \
+    yta-wav="youtube-dl --extract-audio --audio-format wav " \
+    ytv-best="youtube-dl -f bestvideo+bestaudio " \
+    ytv-best-mp4="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 -o '%(title)s.%(ext)s' "
+
+# navigation
+alias .1='cd ..'
+alias .2='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias .5='cd ../../../../..'
+
+# switch between shells
+alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
+alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
+
+## get top process eating memory
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+
+## get top process eating cpu ##
+alias pscpu='ps auxf | sort -nr -k 3'
+alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
+
+# Colorize grep output (good for log files)
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+alias vimwiki='nvim -c VimwikiIndex'
+
+if [[ "$(grep -oP -h '(?<=^ID=).*' /etc/*-release)" == "arch" ]]; then
+	# get fastest mirrors
+	alias \
+	    mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist" \
+	    mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist" \
+	    mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist" \
+	    mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist"
+
+	alias orphans="pacman -Qtdq | sudo pacman -Rsn -"
+	alias cleanup="pacman -Qtdq | sudo pacman -Rsn -"
+	alias unlock="sudo rm /var/lib/pacman/db.lck"    # remove pacman lock
+	alias listpacs="comm -23 <(pacman -Qqett | sort | uniq) <(pacman -Qq base -g base-devel -g xorg -g xorg-drivers | sort | uniq)"
+fi
+
+generate-pass ()
+{
+  tr -dc A-Za-z0-9 </dev/urandom | head -c $([ -z "$1" ] && echo "25" || echo "$1") ; echo ''
+}
