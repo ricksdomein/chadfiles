@@ -1,0 +1,63 @@
+#include "xcolors"
+
+!-- Xft.antialias:	1
+!-- Xft.hinting:	1
+!-- Xft.autohint:	0
+!-- Xft.hintstyle:	hintslight
+!-- Xft.rgba:	rgb
+!-- Xft.lcdfilter:	lcddefault
+
+! window padding
+st.borderpx: 20
+
+!-- values between 0.1  - 1.0 --!
+
+st.alpha: 1.0
+st.font:           JetBrainsMono Nerd Font:pixelsize=15:antialias=true:autohint=true
+!-- st.font:           Ubuntu Mono:pixelsize=17:antialias=true:autohint=true
+!-- st.cwscale: 2
+
+*foreground:   base07
+*background:   #1e222a
+*cursorColor:  base05
+
+! black
+*color0:       base00
+*color8:       base03
+
+! red
+*color1:       base08
+*color9:       base08
+
+! green
+*color2:       base0B
+*color10:      base0B
+
+! yellow
+*color3:       base0A
+*color11:      base0A
+
+! blue
+*color4:       base0D
+*color12:      base0D
+
+! magenta
+*color5:       base0E
+*color13:      base0E
+
+! cyan
+*color6:       base0C
+*color14:      base0C
+
+! white
+*color7:       base05
+*color15:      base07
+
+
+! just remove this if you dont use my tabbed
+
+tabbed.selfgcolor:   #d6d8eb
+tabbed.selbgcolor:   #1e222a
+
+tabbed.normfgcolor:  #9294a8
+tabbed.normbgcolor:  #282c34
