@@ -101,9 +101,11 @@ bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 #}
 #
 #bindkey -s '^R' 'rhist\n'
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
 #bindkey '^R' history-incremental-pattern-search-backward
+([[ $(uname) = "OpenBSD" ]] && [[ -f "/usr/local/share/zsh/site-functions/_fzf_key_bindings" ]]) && source "/usr/local/share/zsh/site-functions/_fzf_key_bindings"
+([[ $(uname) = "OpenBSD" ]] && [[ -f "/usr/local/share/zsh/site-functions/_fzf_completion" ]]) && source "/usr/local/share/zsh/site-functions/_fzf_completion"
+([[ $(uname) = "Linux" ]] && [[ -f "/usr/share/fzf/completion.zsh" ]]) && source "/usr/share/fzf/completion.zsh"
+([[ $(uname) = "Linux" ]] && [[ -f "/usr/share/fzf/completion.zsh" ]]) && source "/usr/share/fzf/completion.zsh" 
 
 bindkey '^[[P' delete-char
 
@@ -112,4 +114,5 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # Load syntax highlighting; should be last.
-source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
+([[ $(uname) = "Linux" ]] && [[ -f "/usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" ]]) && source "/usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh" 2>/dev/null
+([[ $(uname) = "OpenBSD" ]] && [[ -f "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]) && source "/usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null
