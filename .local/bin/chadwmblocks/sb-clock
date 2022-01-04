@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# load colors!
+. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+
+printf "^c%s^^b%s^ 󱑆 " "$base10" "$base0D"
+printf "^c%s^^b%s^ %s ^d^" "$base10" "$base11" "$(date '+%H:%M')"
