@@ -104,8 +104,8 @@ bindkey -s '^f' 'cd "$(dirname "$(fzf)")"\n'
 #bindkey '^R' history-incremental-pattern-search-backward
 ([[ $(uname) = "OpenBSD" ]] && [[ -f "/usr/local/share/zsh/site-functions/_fzf_key_bindings" ]]) && source "/usr/local/share/zsh/site-functions/_fzf_key_bindings"
 ([[ $(uname) = "OpenBSD" ]] && [[ -f "/usr/local/share/zsh/site-functions/_fzf_completion" ]]) && source "/usr/local/share/zsh/site-functions/_fzf_completion"
+([[ $(uname) = "Linux" ]] && [[ -f "/usr/share/fzf/key-bindings.zsh" ]]) && source "/usr/share/fzf/key-bindings.zsh"
 ([[ $(uname) = "Linux" ]] && [[ -f "/usr/share/fzf/completion.zsh" ]]) && source "/usr/share/fzf/completion.zsh"
-([[ $(uname) = "Linux" ]] && [[ -f "/usr/share/fzf/completion.zsh" ]]) && source "/usr/share/fzf/completion.zsh" 
 
 bindkey '^[[P' delete-char
 
