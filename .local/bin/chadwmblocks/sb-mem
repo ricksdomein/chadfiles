@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# load colors!
+. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+
+printf "^c%s^^b%s^ " "$base0D" "$base10"
+printf "^c$base0D^ %s^d^" "$(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)"
+
+#case $BLOCK_BUTTON in
+#case $BUTTON in
+#	4) sudo light -A 1 ;;
+#	5) sudo light -U 1 ;;
+#esac

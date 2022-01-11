@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# load colors!
+. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+
+cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
+
+printf "^c%s^^b%s^ CPU" "$base10" "$base0B"
+printf "^c%s^ ^b%s^ %s ^d^" "$base07" "$base12" "$cpu_val"

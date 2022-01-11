@@ -1,0 +1,23 @@
+#!/bin/sh
+
+. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+
+case "$BLOCK_BUTTON" in
+	1) setsid -f "$TERMINAL" -e pulsemixer ;;
+	2) amixer -q sset Master toggle ;;
+	4) amixer -q sset Master 1%+ ;;
+	5) amixer -q sset Master 1%- ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+
+AUDIO_STATUS="$(amixer get Master | grep -m1 -oe "\[[on|off]*\]" | sed -E -e "s/\[//g" -e "s/\]//g")"
+AUDIO_VOLUME="$(amixer get Master | grep -m1 -oe "\[[0-9]*%\]" | sed -E -e "s/\[//g" -e "s/\]//g")"
+
+if [ "$AUDIO_STATUS" = "on" ]; then
+  printf "^c%s^^b%s^ %s" "$base10" "$base0B" "墳"
+  printf " ^c%s^^b%s^ %s ^d^" "$base07" "$base12" "$AUDIO_VOLUME"
+else
+  printf "^c%s^^b%s^ %s" "$base10" "$base08" "婢"
+  printf " ^c%s^^b%s^ %s ^d^" "$base07" "$base12" "$AUDIO_VOLUME"
+fi

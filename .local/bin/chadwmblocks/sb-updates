@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# load colors!
+. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+
+updates="$(checkupdates | wc -l)"   # arch , needs pacman contrib
+printf "^d^^c%s^  %s updates^d^" "$base0B" "$updates"
