@@ -14,7 +14,9 @@
 #define base0D #61afef
 #define base0E #c678dd
 #define base0F #be5046
+
 #define base10 #1e222a
+#define base11 #90C7F3
 
 
 base00=#282c34
@@ -36,4 +38,3 @@ base0F=#be5046
 
 base10=#1e222a
 base11=#90C7F3
-base12=#2e323a
