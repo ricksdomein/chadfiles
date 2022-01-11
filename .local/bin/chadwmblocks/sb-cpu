@@ -6,4 +6,4 @@
 cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
 
 printf "^c%s^^b%s^ CPU" "$base10" "$base0B"
-printf "^c%s^ ^b%s^ %s ^d^" "$base07" "$base12" "$cpu_val"
+printf "^c%s^ ^b%s^ %s ^d^" "$base07" "$base01" "$cpu_val"
