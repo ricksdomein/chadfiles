@@ -1,0 +1,2 @@
+#/bin/sh
+rotdir %f | grep -i '\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$' | setsid -f nsxiv -aio

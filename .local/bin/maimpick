@@ -1,0 +1,43 @@
+#!/bin/sh
+
+# This is bound to Shift+PrintScreen by default, requires maim. It lets you
+# choose the kind of screenshot to take, including copying the image or even
+# highlighting an area to copy. scrotcucks on suicidewatch right now.
+
+
+full_monitor()
+{
+	MONITORS=$(xrandr | grep -o '[0-9]*x[0-9]*[+-][0-9]*[+-][0-9]*')
+	# Get the location of the mouse
+	XMOUSE=$(xdotool getmouselocation | awk -F "[: ]" '{print $2}')
+	YMOUSE=$(xdotool getmouselocation | awk -F "[: ]" '{print $4}')
+
+	for mon in ${MONITORS}; do
+	  # Parse the geometry of the monitor
+	  MONW=$(echo ${mon} | awk -F "[x+]" '{print $1}')
+	  MONH=$(echo ${mon} | awk -F "[x+]" '{print $2}')
+	  MONX=$(echo ${mon} | awk -F "[x+]" '{print $3}')
+	  MONY=$(echo ${mon} | awk -F "[x+]" '{print $4}')
+	  # Use a simple collision check
+	  if (( ${XMOUSE} >= ${MONX} )); then
+	    if (( ${XMOUSE} <= ${MONX}+${MONW} )); then
+	      if (( ${YMOUSE} >= ${MONY} )); then
+	        if (( ${YMOUSE} <= ${MONY}+${MONH} )); then
+	          # We have found our monitor!
+	          maim -g "${MONW}x${MONH}+${MONX}+${MONY}" pic-full_monitor-"$(date '+%y%m%d-%H%M-%S').png"
+	        fi
+	      fi
+	    fi
+	  fi
+	done
+}
+
+case "$(printf "a selected area\\ncurrent window\\nfull monitor\\nfull screen\\na selected area (copy)\\ncurrent window (copy)\\nfull screen (copy)" | dmenu -l 6 -i -p "Screenshot which area?")" in
+	"a selected area") maim -s pic-selected-"$(date '+%y%m%d-%H%M-%S').png" ;;
+	"current window") maim -i "$(xdotool getactivewindow)" pic-window-"$(date '+%y%m%d-%H%M-%S').png" ;;
+	"full monitor") full_monitor ;;
+	"full screen") maim pic-full_screen-"$(date '+%y%m%d-%H%M-%S').png" ;;
+	"a selected area (copy)") maim -s | xclip -selection clipboard -t image/png ;;
+	"current window (copy)") maim -i "$(xdotool getactivewindow)" | xclip -selection clipboard -t image/png ;;
+	"full screen (copy)") maim | xclip -selection clipboard -t image/png ;;
+esac
