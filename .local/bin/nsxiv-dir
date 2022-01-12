@@ -1,2 +1,3 @@
 #/bin/sh
-rotdir %f | grep -i '\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$' | setsid -f nsxiv -aio
+#rotdir $@ | grep -i '\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$' > /tmp/test
+rotdir $@ | grep -i '\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$' | setsid -f nsxiv -aio

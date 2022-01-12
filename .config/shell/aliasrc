@@ -19,7 +19,9 @@ _dotfiles () {
 
 alias cls="clear"
 
-alias open="xdg-open $@"
+open() {
+	xdg-open "$(pwd)/$1"
+}
 
 alias listsubtitles="ffprobe -loglevel error -select_streams s -show_entries stream=index:stream_tags=language -of csv=p=0 $@"
 
