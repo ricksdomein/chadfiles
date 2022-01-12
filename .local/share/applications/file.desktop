@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=File Manager
+Exec=st -e nvim -c ":terminal lf %u" -c ":startinsert"

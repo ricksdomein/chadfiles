@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=Mount Manager
+Exec=dmenumount
