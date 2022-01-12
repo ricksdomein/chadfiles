@@ -1,5 +1,15 @@
 let mapleader =","
 
+" Color scheme
+colorscheme peachpuff
+highlight Search term=NONE ctermbg=3 ctermfg=NONE ctermbg=8 guibg=#ffd7af
+" highlight Search term=reverse ctermbg=3 ctermfg=0 guibg=Gold2
+if (&background == 'dark')
+  hi Visual cterm=NONE ctermfg=NONE ctermbg=8 guibg=#3a3a3a
+else
+  hi Visual cterm=NONE ctermfg=NONE ctermbg=8 guibg=#ffd7af
+endif
+
 " Enable Mouse
 set mouse=a
 " Share clipboard with mouse

@@ -18,7 +18,7 @@ st.font:           JetBrainsMono Nerd Font:pixelsize=15:antialias=true:autohint=
 !-- st.cwscale: 2
 
 *foreground:   base07
-*background:   #1e222a
+*background:   base10
 *cursorColor:  base05
 
 ! black
@@ -27,27 +27,27 @@ st.font:           JetBrainsMono Nerd Font:pixelsize=15:antialias=true:autohint=
 
 ! red
 *color1:       base08
-*color9:       base08
+*color9:       base12
 
 ! green
 *color2:       base0B
-*color10:      base0B
+*color10:      base13
 
 ! yellow
 *color3:       base0A
-*color11:      base0A
+*color11:      base14
 
 ! blue
 *color4:       base0D
-*color12:      base0D
+*color12:      base11
 
 ! magenta
 *color5:       base0E
-*color13:      base0E
+*color13:      base15
 
 ! cyan
 *color6:       base0C
-*color14:      base0C
+*color14:      base16
 
 ! white
 *color7:       base05
