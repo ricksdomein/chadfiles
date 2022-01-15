@@ -7,7 +7,6 @@
 [ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
 
 # bare git repo alias for dotfiles
-#alias dotfiles="/usr/bin/git --git-dir=$HOME/.local/src/dotfiles/ --work-tree=$HOME"
 dotfiles() {
   git --git-dir=$HOME/.local/src/chadfiles/ --work-tree=$HOME "$@"
 }
@@ -15,7 +14,7 @@ _dotfiles () {
   local -x GIT_DIR=$HOME/.local/src/chadfiles/ GIT_WORKTREE=$HOME
   _git "$@"
 }
-#compdef _gitx gitx
+compdef _gitx gitx
 
 alias cls="clear"
 
@@ -120,8 +119,6 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-alias vimwiki='nvim -c VimwikiIndex'
-
 if [[ "$(uname)" == "Linux" ]] && [[ "$(grep -oP -h '(?<=^ID=).*' /etc/*-release)" == "arch" ]]; then
 	# get fastest mirrors
 	alias \
@@ -136,7 +133,6 @@ if [[ "$(uname)" == "Linux" ]] && [[ "$(grep -oP -h '(?<=^ID=).*' /etc/*-release
 	alias listpacs="comm -23 <(pacman -Qqett | sort | uniq) <(pacman -Qq base -g base-devel -g xorg -g xorg-drivers | sort | uniq)"
 fi
 
-generate-pass ()
-{
+generate-pass () {
   tr -dc A-Za-z0-9 </dev/urandom | head -c $([ -z "$1" ] && echo "25" || echo "$1") ; echo ''
 }
