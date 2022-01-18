@@ -2,10 +2,10 @@
 # works on any init system
 # requirements: dmenu, xorg-setxkbmap
 
-kb_choice="$(awk '/! layout/{flag=1; next} /! variant/{flag=0} flag {print $2, "- " $1}' /usr/share/X11/xkb/rules/base.lst | dmenu -i -r)"
+kb_choice="$(awk '/! layout/{flag=1; next} /! variant/{flag=0} flag {print $2, "- " $1}' /usr/share/X11/xkb/rules/base.lst | dmenu -i -r -p "Layout: ")"
 [ -n "$kb_choice" ] && (
 	kb="$(echo "$kb_choice" | awk '{print $3}')"
-	kb_variant="$(awk '/! variant/{flag=1; next} /! option/{flag=0} flag {pat="'"$kb"':";if ($0~pat){ s = ""; for (i = 3; i <= NF; i++) s = s $i " "; print s " - " $1};}' /usr/share/X11/xkb/rules/base.lst | dmenu -i -r)"
+	kb_variant="$(awk '/! variant/{flag=1; next} /! option/{flag=0} flag {pat="'"$kb"':";if ($0~pat){ s = ""; for (i = 3; i <= NF; i++) s = s $i " "; print s " - " $1};}' /usr/share/X11/xkb/rules/base.lst | dmenu -i -r -p "Variant: ")"
 	[ -z "$kb_variant" ] && setxkbmap "$kb" || (
 		kb_variant="$(echo "$kb_variant" | awk '{print $NF}')"
 		setxkbmap "$kb" "$kb_variant"
