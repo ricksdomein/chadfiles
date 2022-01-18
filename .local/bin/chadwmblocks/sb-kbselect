@@ -1,0 +1,29 @@
+#!/bin/sh
+# works on any init system
+# requirements: dmenu, xorg-setxkbmap
+kb="$(setxkbmap -query | grep -oP 'layout:\s*\K\w+')"
+kb_variant="$(setxkbmap -query | grep -oP 'variant:\s*\K([A-z\-]*)')"
+#kb="$(setxkbmap -query | grep -oP 'layout:\s*\K\w+')" || exit 1
+
+# load colors!
+. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+
+case $BLOCK_BUTTON in
+	1) kb_choice="$(awk '/! layout/{flag=1; next} /! variant/{flag=0} flag {print $2, "- " $1}' /usr/share/X11/xkb/rules/base.lst | dmenu -i -r)"
+	[[ ! -z "$kb_choice" ]] && (
+		kb="$(echo "$kb_choice" | awk '{print $3}')"
+		kb_variant="$(awk '/! variant/{flag=1; next} /! option/{flag=0} flag {pat="'"$kb"':";if ($0~pat){ s = ""; for (i = 3; i <= NF; i++) s = s $i " "; print s " - " $1};}' /usr/share/X11/xkb/rules/base.lst | dmenu -i -r)"
+		[ -z "$kb_variant" ] && setxkbmap "$kb" || (
+			kb_variant="$(echo "$kb_variant" | awk '{print $NF}')"
+			setxkbmap "$kb" "$kb_variant"
+		)
+	)
+	#pkill -RTMIN+30 "${STATUSBAR:-dwmblocks}"
+	;;
+	3) notify-send "⌨  Keyboard/language module" "$(printf "%s" "\- Current layout: $(setxkbmap -query | grep -oP 'layout:\s*\K\w+')")
+- Left click to change keyboard.";;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+
+printf "^c%s^%s%s^d^" "$base07" "$kb" "$([ -z "$kb_variant" ] || echo " - $kb_variant")"
