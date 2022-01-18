@@ -13,8 +13,8 @@ setopt interactive_comments
 setopt HIST_IGNORE_SPACE
 
 # History in cache directory:
-HISTSIZE=10000000000
-SAVEHIST=10000000000
+HISTSIZE=10000000
+SAVEHIST=10000000
 setopt BANG_HIST                 # Treat the '!' character specially during expansion.
 setopt EXTENDED_HISTORY          # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY        # Write to the history file immediately, not when the shell exits.
@@ -28,8 +28,8 @@ setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history 
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
 
-[ ! -d "$HOME/.cache/zsh" ] && mkdir "$HOME/.cache/zsh"
 HISTFILE=~/.cache/zsh/history
+SAVEHIST=$HISTSIZE
 
 # History search
 bindkey -v
