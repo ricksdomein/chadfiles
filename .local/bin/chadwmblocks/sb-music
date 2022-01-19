@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# load colors!
+. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+
+# filter() { mpc | sed "/^volume:/d;s/\\&/&amp;/g;s/\\[paused\\].*//g;/\\[playing\\].*/d;/^ERROR/Q" | paste -sd ' ' -;}
+filter() {
+	mpdstatus="$(mpc status)"
+	state="$(echo "$mpdstatus" | awk '/\[\w*\]/ {print $1}';)"
+	# mpc current | cut -c1-20
+	current="$(echo "$mpdstatus" | head -n 1)"
+
+	case "$state" in
+	  '[playing]') printf "^c%s^^b%s^ 契 ^d^ " "$base10" "$base0B";;
+	  '[paused]') printf "^c%s^^b%s^  ^d^ " "$base10" "$base08";;
+	  *) return ;;
+	esac;
+	printf "^c%s^%s^d^" "$base07" "$current"
+}
+
+
+pidof -x sb-mpdup >/dev/null 2>&1 || sb-mpdup >/dev/null 2>&1 &
+
+case $BLOCK_BUTTON in
+	1) mpc status | filter ; setsid -f "$TERMINAL" -e ncmpcpp ;;  # right click, pause/unpause
+	2) mpc toggle | filter ;;  # right click, pause/unpause
+	3) mpc status | filter ; notify-send "🎵 Music module" "\- Shows mpd song playing.
+- ⏸ when paused.
+- Left click opens ncmpcpp.
+- Middle click pauses.
+- Scroll changes track.";;  # right click, pause/unpause
+	4) mpc prev   | filter ;;  # scroll up, previous
+	5) mpc next   | filter ;;  # scroll down, next
+	6) mpc status | filter ; "$TERMINAL" -e "$EDITOR" "$0" ;;
+	*) mpc status | filter ;;
+esac
