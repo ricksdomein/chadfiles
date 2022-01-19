@@ -4,6 +4,7 @@
 # If you use startx/xinit like a Chad, this file will also be sourced.
 
 #setxkbmap "us_intl,ru" "altgr-intl,"        # Add russian layout to keyboard
+#setxkbmap "us_intl,ru" "altgr-intl," -option 'grp:alt_shift_toggle'
 #xbindkeys -f "$XDG_CONFIG_HOME"/xbindkeys/config
 #claws-mail --alternate-config-dir "$XDG_DATA_HOME"/claws-mail &
 xrandr --dpi 96		# Set DPI. User may want to use a larger number for larger screens.
@@ -17,7 +18,7 @@ xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!	# Uncomment t
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
 
 #autostart="mpd xcompmgr dunst unclutter pipewire nm-applet"
-autostart="redshift dunst unclutter picom transmission-daemon dwmblocks"
+autostart="redshift dunst unclutter picom transmission-daemon mpd dwmblocks"
 
 for program in $autostart; do
 	pidof -s "$program" || setsid -f "$program"
