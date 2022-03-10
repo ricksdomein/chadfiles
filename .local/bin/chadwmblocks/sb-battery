@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# Prints all batteries, their percentage remaining and an emoji corresponding
+
+# load colors!
+. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+
+# Loop through all attached batteries and format the info
+for battery in /sys/class/power_supply/BAT?*; do
+    BAT="$(basename "$battery")"
+	# Sets up the status and capacity
+	capacity="$(cat "$battery/capacity" 2>&1)"
+	case "$(cat "$battery/status" 2>&1)" in
+		"Full")
+            ;;
+		"Discharging")
+            warn=1
+            if [ "$capacity" -le 10 ]; then
+                warn=2
+            fi
+            ;;
+		"Charging")
+            warn=0
+            ;;
+		"Not charging")
+            warn=3
+            if [ "$capacity" -le 10 ]; then
+                warn=2
+            fi
+            ;;
+		"Unknown")
+            warn=4
+            ;;
+		*) exit 1 ;;
+	esac
+	# Will make a warn variable if discharging and low
+    ([ "$warn" -eq 0 ] && ( printf "^c$base10^^b$base0A^ %s " "$BAT"; printf "^d^^c$base0A^ %d%%" "$capacity" )) \
+        || ([ "$warn" -eq 1 ] && ( printf "^c$base10^^b$base08^ %s " "$BAT"; printf "^d^^c$base08^ %d%%" "$capacity" )) \
+            || ([ "$warn" -eq 2 ] && ( printf "^c$base10^^b$base08^ %s " "$BAT"; printf "^d^^c$base08^ %d%%" "$capacity" )) \
+                || ([ "$warn" -eq 3 ] && ( printf "^c$base10^^b$base0D^ %s " "$BAT"; printf "^d^^c$base0D^ %d%%" "$capacity" )) \
+                    || ([ "$warn" -eq 4 ] && ( printf "^c$base10^^b$base0E^ %s " "$BAT"; printf "^d^^c$base0E^ %d%%" "$capacity" )) \
+                        ||  ( printf " ^c$base10^^b$base0B^ %s " "$BAT"; printf "^d^^c$base0B^ %d%%" "$capacity" )
+    unset warn
+done && printf "^d^\n"
