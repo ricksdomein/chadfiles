@@ -13,8 +13,8 @@ st.borderpx: 20
 !-- values between 0.1  - 1.0 --!
 
 st.alpha: 1.0
-st.font:           JetBrainsMono Nerd Font:pixelsize=15:antialias=true:autohint=true
-!-- st.font:           Ubuntu Mono:pixelsize=17:antialias=true:autohint=true
+!-- st.font:           JetBrainsMono Nerd Font:pixelsize=15:antialias=true:autohint=true
+st.font:           Ubuntu Mono:pixelsize=17:antialias=true:autohint=true
 !-- st.cwscale: 2
 
 *foreground:   base07
