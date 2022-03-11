@@ -1,1 +1,3 @@
 0-59 * * * * pkill -RTMIN+1 dwmblocks > /dev/null 2>&1
+*/30 * * * * export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus; export DISPLAY=:0; . $HOME/.zprofile; cron-rss
+0 * * * * export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus; export DISPLAY=:0; . $HOME/.zprofile; checkup
