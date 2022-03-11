@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=Terminal Emulator
-Exec=st
+Exec=st -e nvim -c terminal -c :startinsert

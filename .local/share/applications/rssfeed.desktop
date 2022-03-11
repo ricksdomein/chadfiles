@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=RSS feed reader
+Exec=st -e nvim -c ":terminal newsboat" -c :startinsert && cron-rss
