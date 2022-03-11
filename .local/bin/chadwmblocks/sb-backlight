@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# load colors!
+. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+
+case "$BLOCK_BUTTON" in
+	1) light -S 100 ;;
+	3) light -S 15.3 ;;
+	4) light -A 1 ;;
+	5) light -U 1 ;;
+	#5) light -U 1 ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+vol="$(light -G)"
+printf "^d^^c%s^  " "$base0A"
+printf "^c%s^%s^d^" "$base0A" "${vol%.*}"
