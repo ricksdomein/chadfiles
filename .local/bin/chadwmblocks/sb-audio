@@ -4,17 +4,16 @@
 
 case "$BLOCK_BUTTON" in
 	1) setsid -f "$TERMINAL" -e pulsemixer ;;
-	2) amixer -q sset Master toggle ;;
-	4) amixer -q sset Master 1%+ ;;
-	5) amixer -q sset Master 1%- ;;
+	2) pamixer -t ;;
+	4) pamixer --allow-boost -i 1 ;;
+	5) pamixer --allow-boost -d 1 ;;
 	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
+AUDIO_STATUS="$(pamixer --get-mute)"
+AUDIO_VOLUME="$(pamixer --get-volume)"
 
-AUDIO_STATUS="$(amixer get Master | grep -m1 -oe "\[[on|off]*\]" | sed -E -e "s/\[//g" -e "s/\]//g")"
-AUDIO_VOLUME="$(amixer get Master | grep -m1 -oe "\[[0-9]*%\]" | sed -E -e "s/\[//g" -e "s/\]//g")"
-
-if [ "$AUDIO_STATUS" = "on" ]; then
+if [ "$AUDIO_STATUS" = "false" ]; then
   printf "^c%s^^b%s^ %s" "$base10" "$base0B" "墳"
   printf " ^c%s^^b%s^ %s ^d^" "$base07" "$base01" "$AUDIO_VOLUME"
 else
