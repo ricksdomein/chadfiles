@@ -18,7 +18,7 @@ xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!	# Uncomment t
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
 
 #autostart="mpd xcompmgr dunst unclutter pipewire nm-applet"
-autostart="mpd redshift dunst unclutter picom transmission-daemon dwmblocks"
+autostart="mpd redshift dunst unclutter picom transmission-daemon dwmblocks pipewire"
 
 for program in $autostart; do
 	pidof -s "$program" || setsid -f "$program"
