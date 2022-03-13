@@ -7,5 +7,7 @@
 #updates="$(checkupdates | wc -l)"   # arch , needs pacman contrib
 #sudo pacman -Syyuw --noconfirm > /dev/null 2>&1
 updates="$(pacman -Qu | grep -Fcv "[ignored]")"
-[ "$updates" -gt "0" ] && printf "^d^^c%s^  %s updates^d^" "$base0B" "$updates"
+#[ "$updates" -gt "0" ] && printf "^d^^c%s^  %s^d^" "$base0B" "$updates"
 #pacman -Qu | grep -Fcv "[ignored]" | sed "s/^/📦/;s/^📦0$//g"
+
+cat /tmp/pacupdate 2>/dev/null || printf "^d^^c%s^  %s^d^" "$base0B" "$updates"
