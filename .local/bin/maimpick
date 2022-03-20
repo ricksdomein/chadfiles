@@ -24,7 +24,7 @@ full_monitor()
 	      if (( ${YMOUSE} >= ${MONY} )); then
 	        if (( ${YMOUSE} <= ${MONY}+${MONH} )); then
 	          # We have found our monitor!
-	          maim -g "${MONW}x${MONH}+${MONX}+${MONY}" pic-full_monitor-"$(date '+%y%m%d-%H%M-%S').png"
+	          maim --hidecursor -g "${MONW}x${MONH}+${MONX}+${MONY}" pic-full_monitor-"$(date '+%y%m%d-%H%M-%S').png"
 	        fi
 	      fi
 	    fi
@@ -33,11 +33,11 @@ full_monitor()
 }
 
 case "$(printf "a selected area\\ncurrent window\\nfull monitor\\nfull screen\\na selected area (copy)\\ncurrent window (copy)\\nfull screen (copy)" | dmenu -l 6 -i -p "Screenshot which area?")" in
-	"a selected area") maim -s pic-selected-"$(date '+%y%m%d-%H%M-%S').png" ;;
-	"current window") maim -i "$(xdotool getactivewindow)" pic-window-"$(date '+%y%m%d-%H%M-%S').png" ;;
+	"a selected area") maim --hidecursor -s pic-selected-"$(date '+%y%m%d-%H%M-%S').png" ;;
+	"current window") maim --hidecursor -i "$(xdotool getactivewindow)" pic-window-"$(date '+%y%m%d-%H%M-%S').png" ;;
 	"full monitor") full_monitor ;;
 	"full screen") maim pic-full_screen-"$(date '+%y%m%d-%H%M-%S').png" ;;
-	"a selected area (copy)") maim -s | xclip -selection clipboard -t image/png ;;
-	"current window (copy)") maim -i "$(xdotool getactivewindow)" | xclip -selection clipboard -t image/png ;;
-	"full screen (copy)") maim | xclip -selection clipboard -t image/png ;;
+	"a selected area (copy)") maim --hidecursor -s | xclip -selection clipboard -t image/png ;;
+	"current window (copy)") maim --hidecursor -i "$(xdotool getactivewindow)" | xclip -selection clipboard -t image/png ;;
+	"full screen (copy)") maim --hidecursor | xclip -selection clipboard -t image/png ;;
 esac
