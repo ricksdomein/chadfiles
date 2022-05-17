@@ -3,14 +3,14 @@
 . "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
 
 case "$BLOCK_BUTTON" in
-	1) dunstctl set-paused toggle ;;
+	1) [ "$(dunstctl is-paused)" = "true" ] && killall -SIGUSR2 dunst || killall -SIGUSR1 dunst ;;
 	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
 DUNST_STATUS="$(dunstctl is-paused)"
 
 if [ "$DUNST_STATUS" = "false" ]; then
-  printf "^c%s^%s" "$base0A" ""
+	printf "^c%s^ %s ^d^" "$base0A" ""
 else
-  printf "^c%s^%s" "$base08" ""
+	printf "^c%s^ %s ^d^" "$base08" ""
 fi
