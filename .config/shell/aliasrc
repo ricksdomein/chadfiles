@@ -8,10 +8,10 @@
 
 # bare git repo alias for dotfiles
 dotfiles() {
-  git --git-dir=$HOME/.local/src/rodenticide-files/ --work-tree=$HOME "$@"
+  git --git-dir=$HOME/.local/src/mousepoison-files/ --work-tree=$HOME "$@"
 }
 _dotfiles () {
-  local -x GIT_DIR=$HOME/.local/src/rodenticide-files/ GIT_WORKTREE=$HOME
+  local -x GIT_DIR=$HOME/.local/src/mousepoison-files/ GIT_WORKTREE=$HOME
   _git "$@"
 }
 compdef _gitx gitx
@@ -138,7 +138,7 @@ generate-pass () {
   tr -dc A-Za-z0-9 </dev/urandom | head -c $([ -z "$1" ] && echo "25" || echo "$1") ; echo ''
 }
 
-alias rssfeed="newsboat && cron-rss"
+alias rssfeed="newsboat && echo -en '\e[?25h' && cron-rss"
 
 
 yay () {
@@ -148,3 +148,7 @@ yay () {
 mkcd () {
 	mkdir -p -- "$1" && cd -- "$1";
 }
+
+alias \
+	lf="lfub" \
+	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
