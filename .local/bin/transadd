@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Mimeapp script for adding torrent to transmission-daemon, but will also start the daemon first if not running.
+
+# transmission-daemon sometimes fails to take remote requests in its first moments, hence the sleep.
+
+#pidof transmission-daemon >/dev/null || (transmission-daemon && notify-send "Starting transmission daemon..." && sleep 3 && pkill -RTMIN+7 "${STATUSBAR:-dwmblocks}")
+#pidof transmission-daemon >/dev/null || (transmission-daemon && notify-send "Starting transmission daemon..."
+
+if [ -e "$@" ] || echo "$@" | grep -q "magnet:?xt=urn:btih:[0-9A-Z]*"
+then
+	transmission-remote -a "$@" && notify-send -a "Transmission-daemon" " Torrent added."
+elif echo "$@" | grep -q "[0-9A-Z]*"
+then
+	transmission-remote -a "magnet:?xt=urn:btih:$@" && notify-send -a "Transmission-daemon" " Torrent added."
+fi
