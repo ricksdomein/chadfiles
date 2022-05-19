@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Set as a cron job to check for new RSS entries for newsboat.
+# If newsboat is open, sends it an "R" key to refresh.
+
+# load colors!
+. ~/.config/x11/xcolors
+
+pgrep -x newsboat >/dev/null && exit
+
+ping -q -c 1 example.org > /dev/null || exit
+
+pgrep -f newsboat$ && /usr/bin/xdotool key --window "$(/usr/bin/xdotool search --name newsboat)" R && exit
+
+printf "^d^^c$base0A^$(newsboat -x print-unread | awk '{ if($1>0) print "勒  " $1}')"> /tmp/newsupdate
+pkill -RTMIN+8 "${STATUSBAR:-dwmblocks}"
+/usr/bin/newsboat -x reload
+rm -f /tmp/newsupdate
+pkill -RTMIN+8 "${STATUSBAR:-dwmblocks}"
