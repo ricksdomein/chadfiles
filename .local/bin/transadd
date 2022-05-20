@@ -14,3 +14,4 @@ elif echo "$@" | grep -q "[0-9A-Z]*"
 then
 	transmission-remote -a "magnet:?xt=urn:btih:$@" && notify-send -a "Transmission-daemon" " Torrent added."
 fi
+pkill -RTMIN+9 "${STATUSBAR:-dwmblocks}"

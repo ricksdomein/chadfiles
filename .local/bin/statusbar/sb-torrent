@@ -1,7 +1,9 @@
 #!/bin/sh
-#
+
 # load colors!
 . "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+
+pidof transmission-daemon >/dev/null || exit
 
 torstatus="$(transmission-remote -l | grep % |
 	sed " # The letters are for sorting and will not appear.

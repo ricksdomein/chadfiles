@@ -5,5 +5,9 @@
 # * TR_TORRENT_HASH
 # * TR_TORRENT_ID
 # * TR_TORRENT_NAME
+
 #XDG_RUNTIME_DIR=/run/user/$(id -u) notify-send "Transmission-daemon" "$TR_TORRENT_NAME has completely downloaded."
-export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus; export DISPLAY=:0; notify-send -a "Transmission-daemon" "$TR_TORRENT_NAME has completely downloaded."
+#export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u $USER)/bus; export DISPLAY=:0; . $HOME/.zprofile; notify-send -a "Transmission-daemon" "$TR_TORRENT_NAME has completely downloaded."
+
+notify-send -a "Transmission-daemon" "$TR_TORRENT_NAME has completely downloaded."
+pkill -RTMIN+9 "${STATUSBAR:-dwmblocks}"
