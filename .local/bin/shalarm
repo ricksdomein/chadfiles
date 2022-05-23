@@ -1,0 +1,114 @@
+#!/bin/bash
+
+filename="shalarm"
+message="Ring...!"
+
+showHelp() {
+cat << EOF
+Usage:
+    $filename TIME [OPTION] or [OPTION]
+
+    Arguments:
+    -h or --help:
+        Print this help screen
+
+    -q or --que:
+        Print alarm que
+
+    -d or --debug:
+        Print out some information about what the script is trying to do.
+
+    -r N or --remove N:
+        Removes alarm that has N as id
+
+    -m N or --mesage N:
+        Set N as message notification
+
+
+Examples:
+    $filename 14
+        Set the alarm for 14:00 (2:00 PM).
+    $filename 14:00
+        Set the alarm for 14:00 (2:00 PM).
+    $filename 14:22
+        Set the alarm for 14:22 (2:22 PM).
+    $filename 1422
+        Set the alarm for 14:00 (2:22 PM).
+
+EOF
+}
+
+que () {
+	at -l | awk '{for(i=1;i<=6;i++)printf "%s ",$i;printf "\n"}'
+}
+
+remove () {
+	if [[ "$id" =~ ^[0-9]*$ ]]; then
+		at -r "$id" && echo "Alarm '$id' successfully removed"; exit 0
+	fi
+	echo "Error: use a numberic id"
+	exit 1
+}
+
+timecheck () {
+
+        if [[ "$time" =~ ^[0-9]{1,2}$ ]] && [[ $time -lt 24 ]]; then
+		time="$time:00"
+        elif [[ "$time" =~ ^:[0-9]{2}$ ]] && [[ ${time:1} -lt 60 ]]; then
+		if [[ "${time:1}" -lt "$(date '+%M')" ]]; then
+			time="$(($(date '+%H') +1))$time"
+		else
+			time="$(date '+%H')$time"
+		fi
+	elif [[ "$time" =~ ^[0-9]{4}$ ]]; then
+		time="${time:0:2}:${time:2:2}"
+	elif [[ ! "$time" =~ ^[0-9][0-9]:[0-9][0-9]$ ]]; then
+		echo "Error: Invalid time"
+		exit 1
+	fi
+}
+
+# $@ is all command line parameters passed to the script.
+# -o is for short options like -v
+# -l is for long options with double dash like --version
+# the comma separates different long options
+# -a is for long options with single dash like -version
+options=$(getopt -l "help,que,remove,message" -o "hqr:m:" -a -- "$@")
+
+# set --:
+# If no arguments follow this option, then the positional parameters are unset. Otherwise, the positional parameters
+# are set to the arguments, even if some of them begin with a ‘-’.
+eval set -- "$options"
+
+while true
+do
+	case $1 in
+		-h|--help)
+			showHelp
+			exit 0
+			;;
+		-q|--que)
+			#shift
+			que
+			exit 0
+			;;
+		-r|--remove)
+			id="$2"
+			remove
+			exit 1
+			#set -xv  # Set xtrace and verbose mode.
+			;;
+		-m|--message)
+			message="$2"
+			;;
+		--)
+			shift
+			break;;
+	esac
+	shift
+done
+
+time="$1"
+timecheck
+
+echo "notify-send -u low -a alarm $message" | at "$time"
