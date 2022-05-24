@@ -162,11 +162,12 @@
 #    appname = Pidgin
 #    summary = *twitter.com*
 #    urgency = normal
-[audio]
-    appname = audio
+[alarm]
+    appname = alarm
     urgency = low
     background = "#1e222a"
     foreground = "#ffffff"
     frame_color = "#ffffff"
+    script = "~/.config/dunst/alarm.sh"
 #
 # vim: ft=cfg

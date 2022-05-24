@@ -5,12 +5,12 @@
 
 # If you don't plan on reverting to bash, you can remove the link in ~/.profile
 # to clean up.
-export PATH="$PATH:$(du "$HOME/.local/bin" | cut -f2 | paste -sd ':' -)"
 
 # Adds `~/.local/bin` to $PATH
+export PATH="$PATH:$(du "$HOME/.local/bin" | cut -f2 | paste -sd ':' -)"
 #export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 
-#unsetopt PROMPT_SP
+unsetopt PROMPT_SP
 
 # Default programs:
 export EDITOR="nvim"
@@ -83,13 +83,15 @@ export GPG_TTY="$(tty)"
 # Other program settings:
 export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
 export LESS=-R
-export LESS_TERMCAP_mb=$'\e[1;32m'
-export LESS_TERMCAP_md=$'\e[1;32m'
+# Set 'man' colors
+export LESS_TERMCAP_mb=$'\e[01;32m'
+export LESS_TERMCAP_md=$'\e[01;32m'
 export LESS_TERMCAP_me=$'\e[0m'
 export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_so=$'\e[01;44;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;31m'
+
 export LESSOPEN="| /usr/bin/highlight -O ansi %s 2>/dev/null"
 export QT_QPA_PLATFORMTHEME="gtk2"	# Have QT use gtk2 them
 export MOZ_USE_XINPUT2="1"		# Mozilla smooth scrolling/touchpads.

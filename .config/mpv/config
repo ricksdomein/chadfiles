@@ -9,4 +9,4 @@ sub-color="#FFFFFFFF"
 sub-spacing=0.5
 no-keepaspect-window
 sub-auto=fuzzy
-sub-paths=ass:srt:sub:Sub:subs:Subs:subtitles:Subtitles
+sub-file-paths=ass:srt:sub:Sub:subs:Subs:subtitles:Subtitles
