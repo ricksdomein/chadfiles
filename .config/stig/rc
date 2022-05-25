@@ -1,0 +1,11 @@
+# Default columns in torrent lists
+#set columns.torrents name ratio rate-up rate-down
+
+# Open a few tabs on startup
+tab ls all --sort name --columns size,uploaded,ratio,status,%downloaded,rate-down,rate-up,name
+tab ls uploading
+tab ls downloading
+
+
+# Focus on fist tab
+tab --focus 1
