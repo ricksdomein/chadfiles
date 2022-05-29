@@ -8,5 +8,6 @@ sub-color="#FFFFFFFF"
 #sub-shadow-color="#33000000"
 sub-spacing=0.5
 no-keepaspect-window
-sub-auto=fuzzy
+#sub-auto=fuzzy
+sub-auto=all
 sub-file-paths=ass:srt:sub:Sub:subs:Subs:subtitles:Subtitles
