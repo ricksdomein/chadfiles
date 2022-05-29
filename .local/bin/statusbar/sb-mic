@@ -1,0 +1,22 @@
+#!/bin/sh
+
+. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+
+case "$BLOCK_BUTTON" in
+	1) setsid -f "$TERMINAL" -e pulsemixer ;;
+	2) amixer -q sset Capture toggle ;;
+	4) amixer -q sset Capture 1%+ ;;
+	5) amixer -q sset Capture 1%- ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+MIC_STATUS="$(amixer get Capture | grep -m1 -oe "\[[on|off]*\]" | sed -E -e "s/\[//g" -e "s/\]//g")"
+MIC_VOLUME="$(amixer get Capture | grep -m1 -oe "\[[0-9]*%\]" | sed -E -e "s/\[//g" -e "s/\]//g")"
+
+if [ "$MIC_STATUS" = "on" ]; then
+  printf "^c%s^%s" "$base0B" ""
+  printf "  %s^d^" "$MIC_VOLUME"
+else
+  printf "^c%s^%s" "$base08" ""
+  printf "  %s^d^" "$MIC_VOLUME"
+fi
