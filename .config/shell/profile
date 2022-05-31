@@ -20,6 +20,7 @@ export TERMINAL="st"
 export READER="zathura"
 export BROWSER="brave"
 
+
 # ~/ Clean-up:
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_DATA_HOME="${HOME}/.local/share"
@@ -61,7 +62,7 @@ export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npm/npmrc"
 export PARALLEL_HOME="$XDG_CONFIG_HOME"/parallel
 export PASSWORD_STORE_GENERATED_LENGTH=25
 export PASSWORD_STORE_CHARACTER_SET="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"
-export SVDIR="/etc/runit/sv"
+export MBSYNCRC="${XDG_CONFIG_HOME:-$HOME/.config}/mbsync/config"
 
 
 #export FZF_DEFAULT_COMMAND="find -L"
