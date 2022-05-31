@@ -18,8 +18,11 @@ xrdb ${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources & xrdbpid=$!	# Uncomment t
 [ -n "$xrdbpid" ] && wait "$xrdbpid"
 
 #autostart="mpd xcompmgr dunst unclutter pipewire nm-applet"
-autostart="dunst mpd redshift unclutter picom transmission-daemon pipewire dwmblocks"
+autostart="dunst pipewire mpd redshift unclutter picom transmission-daemon dwmblocks"
 
 for program in $autostart; do
 	pidof -s "$program" || setsid -f "$program"
 done >/dev/null 2>&1
+
+# Fix to update audio module, else module displays the wrong volume
+$(sleep 2s && pkill -RTMIN+2 dwmblocks) &
