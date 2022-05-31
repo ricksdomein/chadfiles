@@ -67,7 +67,9 @@ export MBSYNCRC="${XDG_CONFIG_HOME:-$HOME/.config}/mbsync/config"
 
 #export FZF_DEFAULT_COMMAND="find -L"
 #export "$(dbus-launch)"
-export GPG_TTY="$(tty)"
+
+GPG_TTY=$(tty)
+export GPG_TTY
 
 
 [ ! -d "${XDG_DATA_HOME}/vim" ] && mkdir -p "${XDG_DATA_HOME}"/vim/{undo,swap,backup}
