@@ -14,8 +14,6 @@ video/x-matroska=video.desktop;
 x-scheme-handler/lbry=lbry.desktop;
 inode/directory=file.desktop;
 x-scheme-handler/mailto=mail.desktop;
-
-[Added Associations]
 x-scheme-handler/http=firefox.desktop;
 x-scheme-handler/https=firefox.desktop;
 x-scheme-handler/chrome=firefox.desktop;

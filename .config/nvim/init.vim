@@ -102,6 +102,7 @@
 " Spell-check set to <leader>o, 'o' for 'orthography':
 	map <leader>us :setlocal spell! spelllang=en_us<CR>
 	map <leader>nl :setlocal spell! spelllang=nl<CR>
+	map <leader>uk :setlocal spell! spelllang=en_uk<CR>
 
 " Check file in shellcheck:
 	map <leader>s :!clear && shellcheck -x %<CR>
@@ -119,3 +120,21 @@
 
 " Search keybinding
 	nmap <leader>url /https\?:\/\/\(\w\+\(:\w\+\)\?@\)\?\([A-Za-z][-_0-9A-Za-z]*\.\)\{1,}\(\w\{2,}\.\?\)\{1,}\(:[0-9]\{1,5}\)\?\S*/
+
+function! RenameTerminalBufferToCurrentCommand()
+  " unable to access $HISTFILE from vim, so change this variable to your history file
+  let l:historyFile = "~/.cache/zsh/history"
+  let l:mostRecentCommand = system("tail -1 " . l:historyFile . " | cut -f2- -d\\;")
+
+  " i prepend "term" for easy buffer searching, but feel free to delete
+  let l:newFileName = "term " . fnameescape(trim(l:mostRecentCommand))
+
+  " the keepalt stops :file from creating an alternative file (alt files are
+  " annoying when buffer switching)
+  " :file renames the buffer
+  silent! execute "keepalt file " . l:newFileName
+
+endfunction
+
+
+tnoremap <Enter> <Enter><C-\><C-n>:call RenameTerminalBufferToCurrentCommand()<Enter>a
