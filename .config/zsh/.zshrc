@@ -4,7 +4,8 @@
 autoload -U colors && colors	# Load colors
 #PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
-PROMPT=$'%F{%(#.blue.green)}┌──[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]\n└─%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
+#PROMPT=$'%F{%(#.blue.green)}┌──[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]\n└──%B[%B%F{reset}%n:%m%F{%(#.blue.green)}]%(#.%F{red}#.%F{blue}$)%b%F{reset} '
+PROMPT=$'%F{%(#.blue.green)}┌─[%b%F{blue}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]\n└─%b[%B%F{reset}%n@%m%b%F{%(#.blue.green)}]%(#.%F{red}#.%F{blue}$)%b%F{reset} '
 #PROMPT="%(3~|.../%2~ $|%~ $) "
 
 setopt autocd		# Automatically cd into typed directory.
