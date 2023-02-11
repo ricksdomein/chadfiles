@@ -9,3 +9,6 @@ tab ls downloading
 
 # Focus on fist tab
 tab --focus 1
+
+
+set tui.theme default.theme
