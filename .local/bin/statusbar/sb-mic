@@ -1,22 +1,24 @@
 #!/bin/sh
 
-. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+color2=$(xrdb -query | grep '*color2:'| awk '{print $NF}')
+color1=$(xrdb -query | grep '*color1:'| awk '{print $NF}')
 
 case "$BLOCK_BUTTON" in
 	1) setsid -f "$TERMINAL" -e pulsemixer ;;
 	2) amixer -q sset Capture toggle ;;
-	4) amixer -q sset Capture 1%+ ;;
-	5) amixer -q sset Capture 1%- ;;
+	3) amixer -q sset Capture toggle ;;
+	4) amixer -q sset Capture 1%+ -M ;;
+	5) amixer -q sset Capture 1%- -M ;;
 	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
-MIC_STATUS="$(amixer get Capture | grep -m1 -oe "\[[on|off]*\]" | sed -E -e "s/\[//g" -e "s/\]//g")"
-MIC_VOLUME="$(amixer get Capture | grep -m1 -oe "\[[0-9]*%\]" | sed -E -e "s/\[//g" -e "s/\]//g")"
+MIC_STATUS="$(amixer sget Capture | grep -m1 -oe "\[[on|off]*\]" | sed -E -e "s/\[//g" -e "s/\]//g")"
+MIC_VOLUME="$(amixer sget Capture | grep -m1 -oe "\[[0-9]*%\]" | sed -E -e "s/\[//g" -e "s/\]//g")"
 
 if [ "$MIC_STATUS" = "on" ]; then
-  printf "^c%s^%s" "$base0B" ""
+  printf "^c%s^%s" "$color2" ""
   printf "  %s^d^" "$MIC_VOLUME"
 else
-  printf "^c%s^%s" "$base08" ""
+  printf "^c%s^%s" "$color1" ""
   printf "  %s^d^" "$MIC_VOLUME"
 fi

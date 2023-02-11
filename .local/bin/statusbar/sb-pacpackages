@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # load colors!
-. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+color2=$(xrdb -query | grep '*color2:'| awk '{print $NF}')
 
 #checkupdates -d  >/dev/null 2>&1
 #updates="$(checkupdates | wc -l)"   # arch , needs pacman contrib
@@ -10,4 +10,5 @@ updates="$(pacman -Qu | grep -Fcv "[ignored]")"
 #[ "$updates" -gt "0" ] && printf "^d^^c%s^  %s^d^" "$base0B" "$updates"
 #pacman -Qu | grep -Fcv "[ignored]" | sed "s/^/📦/;s/^📦0$//g"
 
-cat /tmp/pacupdate 2>/dev/null || printf "^d^^c%s^  %s^d^" "$base0B" "$updates"
+#cat /tmp/pacupdate 2>/dev/null || printf "^d^^c%s^  %s^d^" "$color2" "$updates"
+printf "^d^^c%s^%s" "$color2" "$(cat /tmp/pacupdate  2>/dev/null || echo "  $updates" )"

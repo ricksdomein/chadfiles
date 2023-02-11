@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # load colors!
-. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+color3=$(xrdb -query | grep '*color3:'| awk '{print $NF}')
 
 case "$BLOCK_BUTTON" in
 	1) light -S 100 ;;
@@ -13,5 +13,5 @@ case "$BLOCK_BUTTON" in
 esac
 
 vol="$(light -G)"
-printf "^d^^c%s^  " "$base0A"
-printf "^c%s^%s^d^" "$base0A" "${vol%.*}"
+printf "^d^^c%s^  " "$color3"
+printf "^c%s^%s^d^" "$color3" "${vol%.*}"

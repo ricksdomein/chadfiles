@@ -4,7 +4,7 @@
 # When clicked, brings up `newsboat`.
 
 # load colors!
-. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+color3=$(xrdb -query | grep '*color3:'| awk '{print $NF}')
 
 #case $BLOCK_BUTTON in
 #        1) setsid "$TERMINAL" -e newsboat ;;
@@ -17,7 +17,4 @@
 #	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
 #esac
 
-#if ! [ "$(pgrep -f newsboat$ && /usr/bin/xdotool key --window "$(/usr/bin/xdotool search --name newsboat)" R)" ]; then
-#    cat /tmp/newsupdate 2>/dev/null || printf "^d^^c%s^%s%s%s" "$base0A" "$(newsboat -x print-unread | awk '{ if($1>0) print "  " $1}')" "$(cat "${XDG_CONFIG_HOME:-$HOME/.config}"/newsboat/.update 2>/dev/null)"
-#fi
-cat /tmp/newsupdate 2>/dev/null || printf "^d^^c%s^%s%s%s" "$base0A" "$(newsboat -x print-unread | awk '{ if($1>0) print "  " $1}')" "$(cat "${XDG_CONFIG_HOME:-$HOME/.config}"/newsboat/.update 2>/dev/null)"
+printf "^d^^c%s^%s" "$color3" "$(cat /tmp/newsupdate 2>/dev/null || newsboat -x print-unread | awk '{ if($1>0) print "  " $1}')"

@@ -5,7 +5,7 @@
 # second, gives network traffic per second.
 
 # load colors!
-. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+color2=$(xrdb -query | grep '*color2:'| awk '{print $NF}')
 
 update() {
     sum=0
@@ -22,4 +22,4 @@ update() {
 rx=$(update /sys/class/net/[ew]*/statistics/rx_bytes)
 tx=$(update /sys/class/net/[ew]*/statistics/tx_bytes)
 
-printf "^d^^c%s^ﲐ %5sB ﲗ %5sB\\n" "$base0B" "$(numfmt --to=iec "$rx")" "$(numfmt --to=iec "$tx")"
+printf "^d^^c%s^ﲐ %5sB ﲗ %5sB\\n" "$color2" "$(numfmt --to=iec "$rx")" "$(numfmt --to=iec "$tx")"

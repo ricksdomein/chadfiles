@@ -1,4 +1,4 @@
-#include "xcolors"
+! #include "xcolors"
 
 !-- Xft.antialias:	1
 !-- Xft.hinting:	1
@@ -17,42 +17,43 @@ st.alpha: 1.0
 st.font:           Ubuntu Mono:pixelsize=17:antialias=true:autohint=true
 !-- st.cwscale: 2
 
-*foreground:   base07
-*background:   base10
-*cursorColor:  base05
+*foreground:   #ABB2BF
+*background:   #2e3440
+*cursorColor:  #ABB2BF
 
 ! black
-*color0:       base00
-*color8:       base03
+*color0:       #1E2127
+*color8:       #5C6370
 
 ! red
-*color1:       base08
-*color9:       base12
+*color1:       #E06C75
+*color9:       #E06C75
 
 ! green
-*color2:       base0B
-*color10:      base13
+*color2:       #98C379
+*color10:      #98C379
 
 ! yellow
-*color3:       base0A
-*color11:      base14
+*color3:       #D19A66
+*color11:      #D19A66
 
 ! blue
-*color4:       base0D
-*color12:      base11
+*color4:       #61AFEF
+*color12:      #a2d0f6
 
 ! magenta
-*color5:       base0E
-*color13:      base15
+*color5:       #C678DD
+*color13:      #C678DD
 
 ! cyan
-*color6:       base0C
-*color14:      base16
+*color6:       #56B6C2
+*color14:      #56B6C2
 
 ! white
-*color7:       base05
-*color15:      base07
+*color7:       #ABB2BF
+*color15:      #ABB2BF
 
+*color16:      #353b45
 
 ! just remove this if you dont use my tabbed
 

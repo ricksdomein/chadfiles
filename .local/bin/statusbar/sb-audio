@@ -1,10 +1,16 @@
 #!/bin/sh
 
-. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+background=$(xrdb -query | grep '*background:'| awk '{print $NF}')
+color1=$(xrdb -query | grep '*color1:'| awk '{print $NF}')
+color2=$(xrdb -query | grep '*color2:'| awk '{print $NF}')
+color3=$(xrdb -query | grep '*color3:'| awk '{print $NF}')
+color16=$(xrdb -query | grep '*color16:'| awk '{print $NF}')
+foreground=$(xrdb -query | grep '*foreground:'| awk '{print $NF}')
 
 case "$BLOCK_BUTTON" in
 	1) setsid -f "$TERMINAL" -e pulsemixer ;;
 	2) pamixer -t ;;
+	3) pamixer -t ;;
 	4) pamixer --allow-boost -i 1 ;;
 	5) pamixer --allow-boost -d 1 ;;
 	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
@@ -14,9 +20,9 @@ AUDIO_STATUS="$(pamixer --get-mute)"
 AUDIO_VOLUME="$(pamixer --get-volume)"
 
 if [ "$AUDIO_STATUS" = "false" ]; then
-  printf "^c%s^^b%s^ %s" "$base10" "$base0B" "墳"
-  printf " ^c%s^^b%s^ %s ^d^" "$base07" "$base01" "$AUDIO_VOLUME"
+  printf "^c%s^^b%s^ %s" "$background" "$color2" "墳"
+  printf " ^c%s^^b%s^ %s ^d^" "$foreground" "$color16" "$AUDIO_VOLUME"
 else
-  printf "^c%s^^b%s^ %s" "$base10" "$base08" "婢"
-  printf " ^c%s^^b%s^ %s ^d^" "$base07" "$base01" "$AUDIO_VOLUME"
+  printf "^c%s^^b%s^ %s" "$background" "$color3" "婢"
+  printf " ^c%s^^b%s^ %s ^d^" "$foreground" "$color16" "$AUDIO_VOLUME"
 fi

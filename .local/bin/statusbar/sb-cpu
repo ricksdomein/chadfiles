@@ -1,9 +1,13 @@
 #!/bin/sh
 
 # load colors!
-. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+background=$(xrdb -query | grep '*background:'| awk '{print $NF}')
+color2=$(xrdb -query | grep '*color2:'| awk '{print $NF}')
+foreground=$(xrdb -query | grep '*foreground:'| awk '{print $NF}')
+color4=$(xrdb -query | grep '*color4:'| awk '{print $NF}')
+color16=$(xrdb -query | grep '*color16:'| awk '{print $NF}')
 
 cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
 
-printf "^c%s^^b%s^ CPU" "$base10" "$base0B"
-printf "^c%s^ ^b%s^ %s ^d^" "$base07" "$base01" "$cpu_val"
+printf "^c%s^^b%s^ CPU" "$background" "$color2"
+printf "^c%s^ ^b%s^ %s ^d^" "$foreground" "$color16" "$cpu_val"

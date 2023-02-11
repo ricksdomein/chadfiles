@@ -1,7 +1,8 @@
 #!/bin/sh
 
-# load colors!
-. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+background=$(xrdb -query | grep '*background:'| awk '{print $NF}')
+color4=$(xrdb -query | grep '*color4:'| awk '{print $NF}')
+color12=$(xrdb -query | grep '*color12:'| awk '{print $NF}')
 
-printf "^c%s^^b%s^ 󱑆 " "$base10" "$base0D"
-printf "^c%s^^b%s^ %s ^d^" "$base10" "$base11" "$(date '+%I:%M %p' | tr '[:lower:]' '[:upper:]')"
+printf "^c%s^^b%s^ 󱑆 " "$background" "$color4"
+printf "^c%s^^b%s^ %s ^d^" "$background" "$color12" "$(date '+%I:%M %p' | tr '[:lower:]' '[:upper:]')"

@@ -2,12 +2,10 @@
 
 # Syncs repositories and downloads updates, meant to be run as a cronjob.
 
-. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
-
 #notify-send "📦 Repository Sync" "Checking for package updates..."
 
 updates="$(pacman -Qu | grep -Fcv "[ignored]")"
-printf "^d^^c%s^勒  %s^d^" "$base0B" "$updates" > /tmp/pacupdate
+printf "勒  %s" "$updates" > /tmp/pacupdate
 pkill -RTMIN+7 "${STATUSBAR:-dwmblocks}"
 
 sudo pacman -Syyuw --noconfirm

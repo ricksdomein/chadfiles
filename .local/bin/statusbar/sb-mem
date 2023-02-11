@@ -1,10 +1,11 @@
 #!/bin/sh
 
 # load colors!
-. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+color4=$(xrdb -query | grep '*color4:'| awk '{print $NF}')
+background=$(xrdb -query | grep '*background:'| awk '{print $NF}')
 
-printf "^c%s^^b%s^ " "$base0D" "$base10"
-printf "^c$base0D^ %s^d^" "$(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)"
+printf "^c%s^^b%s^ " "$color4" "$background"
+printf "^c%s^ %s^d^" "$color4" "$(free -h | awk '/^Mem/ { print $3 }' | sed s/i//g)"
 
 #case $BLOCK_BUTTON in
 #case $BUTTON in

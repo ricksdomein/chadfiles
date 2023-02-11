@@ -6,11 +6,11 @@ case "$(readlink -f /sbin/init)" in
 esac
 
 case "$(printf " lock\nﴚ leave dwm\n renew dwm\n hibernate\n鈴 sleep\nﰇ reboot\n襤 shutdown\n display off" | dmenu -i -p 'Action: ')" in
-	' lock') lock -i "$HOME/.local/share/bg" ;;
+	' lock') slock ;;
 	'ﴚ leave dwm') kill -TERM "$(pgrep -u "$USER" "\bdwm$")" ;;
 	' renew dwm') kill -HUP "$(pgrep -u "$USER" "\bdwm$")" ;;
-	' hibernate') lock -i "$HOME/.local/share/bg" && "$ctl" hibernate ;;
-	'鈴 sleep') lock -i "$HOME/.local/share/bg" && "$ctl" suspend ;;
+	' hibernate') slock && "$ctl" hibernate ;;
+	'鈴 sleep') slock && "$ctl" suspend ;;
 	'ﰇ reboot') $ctl reboot ;;
 	'襤 shutdown') $ctl poweroff ;;
 	' display off') xset dpms force off ;;

@@ -6,7 +6,7 @@ kb_variant="$(setxkbmap -query | grep -oP 'variant:\s*\K([A-z\-]*)')"
 #kb="$(setxkbmap -query | grep -oP 'layout:\s*\K\w+')" || exit 1
 
 # load colors!
-. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+foreground=$(xrdb -query | grep '*foreground:'| awk '{print $NF}')
 
 case $BLOCK_BUTTON in
 	1) kb_choice="$(awk '/! layout/{flag=1; next} /! variant/{flag=0} flag {print $2, "- " $1}' /usr/share/X11/xkb/rules/base.lst | dmenu -i -r -p "Layout: ")"
@@ -26,4 +26,4 @@ case $BLOCK_BUTTON in
 esac
 
 
-printf "^c%s^%s%s^d^" "$base07" "$kb" "$([ -z "$kb_variant" ] || echo " - $kb_variant")"
+printf "^c%s^%s%s^d^" "$foreground" "$kb" "$([ -z "$kb_variant" ] || echo " - $kb_variant")"

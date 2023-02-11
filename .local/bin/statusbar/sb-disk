@@ -4,7 +4,8 @@
 # $1 should be drive mountpoint, otherwise assumed /.
 
 # load colors!
-. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xcolors"
+color6=$(xrdb -query | grep '*color6:'| awk '{print $NF}')
+color5=$(xrdb -query | grep '*color5:'| awk '{print $NF}')
 
 location=${1:-/}
 
@@ -18,9 +19,9 @@ case $BLOCK_BUTTON in
 esac
 
 case "$location" in
-	"/home"* ) icon="^d^^c$base0C^" ;;
+	"/home"* ) icon="^d^^c$color6^" ;;
 	"/mnt"* ) icon="" ;;
-	*) icon="^d^^c$base0E^פּ";;
+	*) icon="^d^^c$color5^פּ";;
 esac
 
 printf "%s  %s^d^\n" "$icon" "$(df -h "$location" | awk ' /[0-9]/ {print $3 "/" $2}')"
