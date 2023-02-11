@@ -8,11 +8,11 @@
 
 # bare git repo alias for dotfiles
 dotfiles() {
-  git --git-dir=$HOME/.local/src/mousepoison-files/ --work-tree=$HOME "$@"
+	git --git-dir=$HOME/.local/src/mousepoison-files/ --work-tree=$HOME "$@"
 }
 _dotfiles () {
-  local -x GIT_DIR=$HOME/.local/src/mousepoison-files/ GIT_WORKTREE=$HOME
-  _git "$@"
+	local -x GIT_DIR=$HOME/.local/src/mousepoison-files/ GIT_WORKTREE=$HOME
+	_git "$@"
 }
 compdef _gitx gitx
 
@@ -25,7 +25,7 @@ open() {
 alias listsubtitles="ffprobe -loglevel error -select_streams s -show_entries stream=index:stream_tags=language -of csv=p=0 $@"
 
 urlxray() {
-    curl -s "http://urlxray.com/display.php?url=$@" | grep -o '<title>.*</title>' | sed 's/<title>.*--> \(.*\)<\/title>/\1/g'
+	curl -s "http://urlxray.com/display.php?url=$@" | grep -o '<title>.*</title>' | sed 's/<title>.*--> \(.*\)<\/title>/\1/g'
 }
 
 # termbin
@@ -38,11 +38,11 @@ alias 2png="mogrify -format png"
 
 # Changing "ls" to "exa"
 alias \
-    ls="exa -gl --color=always --group-directories-first" \
-    la="exa -ga --color=always --group-directories-first" \
-    ll="exa -gal --color=always --group-directories-first" \
-    lt="exa -gaT --color=always --group-directories-first" \
-    llt="exa -gal --color=always -s time"
+	ls="exa -gl --color=always --group-directories-first" \
+	la="exa -ga --color=always --group-directories-first" \
+	ll="exa -gal --color=always --group-directories-first" \
+	lt="exa -gaT --color=always --group-directories-first" \
+	llt="exa -gal --color=always -s time"
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
@@ -84,16 +84,16 @@ alias \
 
 # youtube-dl
 alias \
-    yta-aac="youtube-dl --extract-audio --audio-format aac " \
-    yta-best="youtube-dl --extract-audio --audio-format best " \
-    yta-flac="youtube-dl --extract-audio --audio-format flac " \
-    yta-m4a="youtube-dl --extract-audio --audio-format m4a " \
-    yta-mp3="youtube-dl --extract-audio --audio-format mp3 " \
-    yta-opus="youtube-dl --extract-audio --audio-format opus " \
-    yta-vorbis="youtube-dl --extract-audio --audio-format vorbis " \
-    yta-wav="youtube-dl --extract-audio --audio-format wav " \
-    ytv-best="youtube-dl -f bestvideo+bestaudio " \
-    ytv-best-mp4="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 -o '%(title)s.%(ext)s' "
+	yta-aac="youtube-dl --extract-audio --audio-format aac " \
+	yta-best="youtube-dl --extract-audio --audio-format best " \
+	yta-flac="youtube-dl --extract-audio --audio-format flac " \
+	yta-m4a="youtube-dl --extract-audio --audio-format m4a " \
+	yta-mp3="youtube-dl --extract-audio --audio-format mp3 " \
+	yta-opus="youtube-dl --extract-audio --audio-format opus " \
+	yta-vorbis="youtube-dl --extract-audio --audio-format vorbis " \
+	yta-wav="youtube-dl --extract-audio --audio-format wav " \
+	ytv-best="youtube-dl -f bestvideo+bestaudio " \
+	ytv-best-mp4="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 -o '%(title)s.%(ext)s' "
 
 # navigation
 alias .1='cd ..'
@@ -122,11 +122,11 @@ alias fgrep='fgrep --color=auto'
 if [[ "$(uname)" == "Linux" ]] && [[ "$(grep -oP -h '(?<=^ID=).*' /etc/*-release)" == "arch" ]]; then
 	# get fastest mirrors
 	alias \
-	    mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist" \
-	    mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist" \
-	    mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist" \
-	    mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist" \
-	    mirrorn="sudo reflector --country Netherlands --protocol https --latest 5 --save /etc/pacman.d/mirrorlist"
+		mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist" \
+		mirrord="sudo reflector --latest 50 --number 20 --sort delay --save /etc/pacman.d/mirrorlist" \
+		mirrors="sudo reflector --latest 50 --number 20 --sort score --save /etc/pacman.d/mirrorlist" \
+		mirrora="sudo reflector --latest 50 --number 20 --sort age --save /etc/pacman.d/mirrorlist" \
+		mirrorn="sudo reflector --country Netherlands --protocol https --latest 5 --save /etc/pacman.d/mirrorlist"
 
 	alias orphans="pacman -Qtdq | sudo pacman -Rsn -"
 	alias cleanup="pacman -Qtdq | sudo pacman -Rsn -"
@@ -134,8 +134,10 @@ if [[ "$(uname)" == "Linux" ]] && [[ "$(grep -oP -h '(?<=^ID=).*' /etc/*-release
 	alias listpacs="comm -23 <(pacman -Qqett | sort | uniq) <(pacman -Qq base -g base-devel -g xorg -g xorg-drivers | sort | uniq)"
 fi
 
+alias listpacs="pacman -Qqet"
+
 generate-pass () {
-  tr -dc A-Za-z0-9 </dev/urandom | head -c $([ -z "$1" ] && echo "25" || echo "$1") ; echo ''
+	tr -dc A-Za-z0-9 </dev/urandom | head -c $([ -z "$1" ] && echo "25" || echo "$1") ; echo ''
 }
 
 alias rssfeed="newsboat && echo -en '\e[?25h' && cron-rss"
@@ -152,3 +154,10 @@ mkcd () {
 alias \
 	lf="lfub" \
 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
+
+alias \
+	calcurse_personal="calcurse -C $HOME/.config/calcurse/Personal -D $HOME/.local/share/calcurse/Personal" \
+	calcurse_bdays="calcurse -C $HOME/.config/calcurse/Birthdays -D $HOME/.local/share/calcurse/Birthdays"
+
+# terminal-cursor disappears fix
+alias newsboat='newsboat; echo -en "\e[?25h"'

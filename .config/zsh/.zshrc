@@ -11,7 +11,6 @@ PROMPT=$'%F{%(#.blue.green)}┌─[%b%F{blue}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue
 setopt autocd		# Automatically cd into typed directory.
 stty stop undef		# Disable ctrl-s to freeze terminal.
 setopt interactive_comments
-setopt HIST_IGNORE_SPACE
 
 # History in cache directory:
 HISTSIZE=10000000
@@ -28,6 +27,7 @@ setopt HIST_IGNORE_SPACE         # Don't record an entry starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS        # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY               # Don't execute immediately upon history expansion.
+setopt HIST_IGNORE_SPACE
 
 HISTFILE=~/.cache/zsh/history
 SAVEHIST=$HISTSIZE
