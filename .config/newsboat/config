@@ -57,3 +57,4 @@ highlight article ":.*\\(image\\)$" blue default
 highlight article ":.*\\(embedded flash\\)$" magenta default
 
 #cache-file "~/.cache/newsboat-cache.db"
+ text-width 72
