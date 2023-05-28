@@ -15,6 +15,7 @@ else
 fi
 
 
-ssh-agent dbus-launch --exit-with-session dwm
-#ssh-agent dwm
+#ssh-agent dbus-launch --exit-with-session dwm
+ssh-agent dwm
+#exec dwm
 #ssh-agent exec dbus-launch --sh-syntax --exit-with-session dwm
