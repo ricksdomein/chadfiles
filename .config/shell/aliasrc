@@ -140,7 +140,7 @@ generate-pass () {
 	tr -dc A-Za-z0-9 </dev/urandom | head -c $([ -z "$1" ] && echo "25" || echo "$1") ; echo ''
 }
 
-alias rssfeed="newsboat && echo -en '\e[?25h' && cron-rss"
+alias news="newsboat && echo -en '\e[?25h' && cron-rss"
 
 
 yay () {
