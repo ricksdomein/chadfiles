@@ -9,10 +9,12 @@ case "$(printf " lock\nﴚ leave dwm\n renew dwm\n hibernate\n鈴 sleep
 	' lock') slock ;;
 	'ﴚ leave dwm') kill -TERM "$(pgrep -u "$USER" "\bdwm$")" ;;
 	' renew dwm') kill -HUP "$(pgrep -u "$USER" "\bdwm$")" ;;
-	' hibernate') slock && "$ctl" hibernate ;;
-	'鈴 sleep') slock && "$ctl" suspend ;;
-	'ﰇ reboot') $ctl reboot ;;
-	'襤 shutdown') $ctl poweroff ;;
+#	' hibernate') slock "$ctl" hibernate -i ;;
+	' hibernate') "$ctl" hibernate -i ;;
+#	'鈴 sleep') slock "$ctl" suspend -i ;;
+	'鈴 sleep') "$ctl" suspend -i ;;
+	'ﰇ reboot') $ctl reboot -i ;;
+	'襤 shutdown') $ctl poweroff -i ;;
 	' display off') xset dpms force off ;;
 	*) exit 1 ;;
 esac

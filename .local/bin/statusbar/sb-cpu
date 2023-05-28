@@ -7,7 +7,8 @@ foreground=$(xrdb -query | grep '*foreground:'| awk '{print $NF}')
 color4=$(xrdb -query | grep '*color4:'| awk '{print $NF}')
 color16=$(xrdb -query | grep '*color16:'| awk '{print $NF}')
 
-cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
+cpu_val="$((100-$(vmstat 1 2 | tail -1 | awk '{print $15}')))"
+#cpu_val=$(grep -o "^[^ ]*" /proc/loadavg)
 
 printf "^c%s^^b%s^ CPU" "$background" "$color2"
-printf "^c%s^ ^b%s^ %s ^d^" "$foreground" "$color16" "$cpu_val"
+printf "^c%s^ ^b%s^ %2s%% ^d^" "$foreground" "$color16" "$cpu_val"
