@@ -245,6 +245,8 @@ cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 " Replace all is aliased to S.
 nnoremap S :%s//g<Left><Left>
 
+" Markdown highlight
+vnoremap <leader>m :s/\%V.*\%V./<mark>&<\/mark>/
 " -----------------------------------------------------------------------------
 " Basic autocommands
 " -----------------------------------------------------------------------------
